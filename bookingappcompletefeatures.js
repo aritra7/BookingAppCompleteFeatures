@@ -6,8 +6,13 @@ function saveMe(event){
     const userDetails = {
         username: userName.value, email: email.value, contactNo: contactNo.value
     }
-    localStorage.setItem(userDetails.email,JSON.stringify(userDetails))
-    showUserOnList(userDetails)
+    // To save user details in the local storage and show
+    // localStorage.setItem(userDetails.email,JSON.stringify(userDetails))
+    // showUserOnList(userDetails)
+    // To save user details to the cloud storage / crud crud and show
+    axios.post('https://crudcrud.com/api/01d3733d06b14a139325aae2e5514053/AppoinmentData',userDetails)
+    .then((response)=>showUserOnList(response.data))
+    .catch((err)=>document.body.innerHTML += `${err}`)
 }
 function showUserOnList(users){
     document.getElementById('username').value =''
