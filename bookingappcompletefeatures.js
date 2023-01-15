@@ -23,14 +23,23 @@ function showUserOnList(users){
     parentNode.innerHTML += li
 }
 window.addEventListener("DOMContentLoaded",()=>{
-    const localStorageObject = localStorage;
-    let localStorageObjectKeys = Object.keys(localStorageObject)
-    for(let i=0; i<localStorageObjectKeys.length; i++){
-        let key = localStorageObjectKeys[i];
-        let keyDetails = localStorageObject[key];
-        const keyDetailsObj = JSON.parse(keyDetails)
-        showUserOnList(keyDetailsObj)
-    }
+    // To fetch data from local storage after refresh to visible to screen
+    // const localStorageObject = localStorage;
+    // let localStorageObjectKeys = Object.keys(localStorageObject)
+    // for(let i=0; i<localStorageObjectKeys.length; i++){
+    //     let key = localStorageObjectKeys[i];
+    //     let keyDetails = localStorageObject[key];
+    //     const keyDetailsObj = JSON.parse(keyDetails)
+    //     showUserOnList(keyDetailsObj)
+    // }
+    axios.get("https://crudcrud.com/api/01d3733d06b14a139325aae2e5514053/AppoinmentData")
+    .then((response)=>{
+        for(let i=0; i<response.data.length; i++){
+            let key = response.data[i];
+            showUserOnList(key)
+        }
+    })
+    .catch((err)=>document.body.innerHTML +=`Error: ${err}`)
 })
 function editinfo(editNameInfo, editEmailInfo, editContactInfo){
     document.getElementById('username').value = editNameInfo;
